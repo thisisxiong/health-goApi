@@ -1,0 +1,11 @@
+debug: true
+logPath: 'log'
+mysql:
+  host: '127.0.0.1'
+  port: 3306
+  user: 'root'
+  password: 'root'
+  dbname: 'health'
+  level: 4
+
+# level 1.关闭调试 2.error3.warn4.info
