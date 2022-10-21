@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
 	"health/global"
+	"health/models"
 	"log"
 	"os"
 	"time"
@@ -77,7 +78,7 @@ func Initdb() {
 	global.Db = db
 
 	//初始化表结构
-	//db.AutoMigrate(&models.Health{}, &models.User{})
+	db.AutoMigrate(&models.Health{}, &models.User{})
 }
 
 func mkdir(path string) error {

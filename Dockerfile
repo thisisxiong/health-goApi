@@ -20,12 +20,13 @@ WORKDIR /docker-entrypoint-initdb.d
 #支持utf-8编码机
 ENV LANG=C.UTF-8
 ENV MYSQL_ROOT_PASSWORD=root
-COPY --from builder /go/src/api/init.sql ./
-COPY --from builder /go/src/api/app ./
-COPY --from builder /go/src/api/config/ ./
+COPY --from=builder /go/src/api/init.sql ./
+COPY --from=builder /go/src/api/app ./
+RUN mkdir config && chmod 777 app
+COPY --from=builder /go/src/api/config/conf.yaml ./config
 
 ENV ADDR=:8080
 #暴露端口
 EXPOSE 8080
 
-CMD ["./app"]
+#CMD ["./app"]
