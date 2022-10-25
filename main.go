@@ -22,6 +22,7 @@ func main() {
 	router.InitRouter(r)
 
 	port := flag.Int("port", 8080, "端口号 默认8080")
+	flag.Parse()
 	go func() {
 		r.Run(fmt.Sprintf(":%d", *port))
 	}()

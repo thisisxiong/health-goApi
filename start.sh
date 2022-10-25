@@ -1,31 +1,36 @@
 #!/bin/bash
 
 flag=$1
-function daemonStart() {
-  while true
-  do
-    num=`ps axu|grep health|grep -v grep|wc -l`
-    if [ $num -lt 1 ];then
-      nohup ./health >> start.log 2>&1 &
-    fi
-    sleep 10
-  done
+addr=${2:-8080}
+function start() {
+    nohup ./health-daemonStart.sh "$addr" &
 }
 
 function build() {
-  `go build -o health`
+    $(go build -o health)
 }
 
+function stop() {
+    d=$(ps axu | grep -w health-daemon | grep -v grep | awk '{print $2}')
+    if [ "$d" -gt 0 ]; then
+        kill -9 "$d"
+        echo "守护脚本关闭"
+    fi
+    h=$(ps axu | grep -w health | grep -v grep | awk '{print $2}')
+    if [ "$h" -gt 0 ]; then
+        kill -9 "$h"
+        echo "程序关闭"
+    fi
+}
 
-if [ $flag == "start" ]
-then
-  daemonStart
-elif [ $flag == "build" ]
-then
-  build
-fi
-
-
-
-
-
+case $flag in
+"start")
+    start
+    ;;
+"build")
+    build
+    ;;
+"stop")
+    stop
+    ;;
+esac
