@@ -33,4 +33,7 @@ case $flag in
 "stop")
     stop
     ;;
+*)
+    echo -e "请选择你需要执行的动作 :\n start [port] 守护进行方式启动程序 \n stop 关闭守护进程和程序 \n build 重新构建程序"
+    ;;
 esac
