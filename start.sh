@@ -3,7 +3,7 @@
 flag=$1
 addr=${2:-8080}
 function start() {
-    nohup ./health-daemonStart.sh "$addr" &
+    nohup ./health-daemon.sh "$addr" &
 }
 
 function build() {
@@ -12,12 +12,14 @@ function build() {
 
 function stop() {
     d=$(ps axu | grep -w health-daemon | grep -v grep | awk '{print $2}')
-    if [ "$d" -gt 0 ]; then
+	dPid=${d:-0}
+    if [ "$dPid" -gt 0 ]; then
         kill -9 "$d"
         echo "守护脚本关闭"
     fi
     h=$(ps axu | grep -w health | grep -v grep | awk '{print $2}')
-    if [ "$h" -gt 0 ]; then
+	hPid=${h:-0}
+    if [ "$hPid" -gt 0 ]; then
         kill -9 "$h"
         echo "程序关闭"
     fi
