@@ -3,7 +3,7 @@
 flag=$1
 addr=${2:-8080}
 function start() {
-    nohup ./health-daemon.sh "$addr" &
+    nohup ./app-daemon.sh "$addr" &
 }
 
 function build() {
@@ -11,7 +11,7 @@ function build() {
 }
 
 function stop() {
-    d=$(ps axu | grep -w health-daemon | grep -v grep | awk '{print $2}')
+    d=$(ps axu | grep -w app-daemon | grep -v grep | awk '{print $2}')
 	dPid=${d:-0}
     if [ "$dPid" -gt 0 ]; then
         kill -9 "$d"
