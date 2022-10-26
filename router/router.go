@@ -7,6 +7,7 @@ import (
 )
 
 func InitRouter(r *gin.Engine) {
+	r.Use(middlewares.Cors())
 	r.GET("/version", api.Version)
 
 	user := r.Group("/user")
