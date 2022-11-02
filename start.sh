@@ -10,6 +10,24 @@ function build() {
     $(go build -o health)
 }
 
+function status(){
+    d=$(ps axu | grep -w app-daemon | grep -v grep | awk '{print $2}')
+    dPid=${d:-0}
+    if [ "$dPid" -gt 0 ]; then
+        echo "进程守护脚本已开启：$dPid"
+    else
+        echo -e "33[31m 进程守护脚本未开启 33[0m"
+    fi
+
+    h=$(ps axu | grep -w health | grep -v grep | awk '{print $2}')
+    hPid=${h:-0}
+    if [ "$hPid" -gt 0 ]; then
+        echo "程序已运行：$hPid"
+    else
+        echo -e "33[31m 程序未运行 33[0m"
+    fi
+}
+
 function stop() {
     d=$(ps axu | grep -w app-daemon | grep -v grep | awk '{print $2}')
 	dPid=${d:-0}

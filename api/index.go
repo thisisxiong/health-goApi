@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"health/models"
@@ -43,6 +44,11 @@ func processErr(m interface{}, err error) string {
 	if ok {
 		return "参数错误：" + invalid.Error()
 	}
+	unmarshal, ok := err.(*json.UnmarshalTypeError)
+	if ok {
+		return "参数类型错误：" + unmarshal.Field
+	}
+
 	validErr := err.(validator.ValidationErrors)
 	for _, info := range validErr {
 		var msg string

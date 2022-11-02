@@ -29,9 +29,9 @@ type Health struct {
 
 type Cond struct {
 	Id    uint   `form:"id"`
-	Uid   uint32 `form:"uid"`
-	Start string `form:"start_time"`
-	End   string `form:"end_time"`
+	Uid   uint32 `form:"uid" json:"uid"`
+	Start string `form:"start_time" json:"start_time"`
+	End   string `form:"end_time" json:"end_time"`
 }
 
 func Create(data Health) (*Health, error) {
@@ -60,7 +60,7 @@ func List(data Cond) ([]Health, error) {
 	var ret []Health
 	db := global.Db.Model(&Health{})
 	fmt.Printf("uid :%d", data.Uid)
-	db = db.Where(&Health{Uid: data.Uid})
+	db = db.Where(&Health{Uid: data.Uid}).Order("day desc")
 	if data.Start != "" && data.End != "" {
 		db = db.Where("day between ? and ?", data.Start, data.End)
 	}
