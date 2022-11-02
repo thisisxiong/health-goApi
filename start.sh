@@ -16,7 +16,7 @@ function status(){
     if [ "$dPid" -gt 0 ]; then
         echo "进程守护脚本已开启：$dPid"
     else
-        echo -e "33[31m 进程守护脚本未开启 33[0m"
+        echo -e "\033[31m 进程守护脚本未开启 \033[0m"
     fi
 
     h=$(ps axu | grep -w health | grep -v grep | awk '{print $2}')
@@ -24,7 +24,7 @@ function status(){
     if [ "$hPid" -gt 0 ]; then
         echo "程序已运行：$hPid"
     else
-        echo -e "33[31m 程序未运行 33[0m"
+        echo -e "\033[31m 程序未运行 \033[0m"
     fi
 }
 
