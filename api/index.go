@@ -28,8 +28,12 @@ func Success(ctx *gin.Context, data interface{}) {
 		"data":    data,
 	})
 }
-func Fail(ctx *gin.Context, msg string) {
-	ctx.JSON(200, gin.H{
+func Fail(ctx *gin.Context, msg string, codes ...int) {
+	code := 200
+	if len(codes) > 0 {
+		code = codes[0]
+	}
+	ctx.JSON(code, gin.H{
 		"status":  0,
 		"message": msg,
 		"data":    "",
