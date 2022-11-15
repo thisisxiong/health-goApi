@@ -20,6 +20,8 @@
     
     build 构建程序
 
+    status 进程状态
+
 > [app-daemon.sh](app-daemon.sh)
 
     守护进程脚本
